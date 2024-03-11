@@ -1,0 +1,106 @@
+import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO, shake, range, unique, arrayed} from '.'
+
+const object = {
+  1: 4,
+  2: 5,
+  3: 6
+}
+
+test('values', () => {
+  expect(values(object).reduce((acc, cur) => {
+    acc += cur
+    return acc
+  })).toBe(15)
+})
+
+test('keys', () => {
+  expect(keys(object).reduce((acc, cur) => {
+    acc += Number(cur)
+    return acc
+  }, 0)).toBe(6)
+})
+
+describe.each([
+  [object, true], [null, false], [undefined, false], [1, false], ['a', false]
+])('isObject', (value, expected) => {
+  expect(isObject(value)).toBe(expected)
+})
+
+test('oLength', () => {
+  expect(oLength(object)).toBe(3)
+})
+
+test('oForEach', () => {
+  const tmp = [0, 0]
+  oForEach(object, ([k, v]) => {
+    tmp[0] += Number(k)
+    tmp[1] += v
+  })
+  expect(tmp.join('')).toBe('615')
+})
+
+test('oForEachK', () => {
+  let result = 0
+  oForEachK(object, (k) => {
+    result += Number(k)
+  })
+  expect(result).toBe(6)
+})
+
+test('oForEachV', () => {
+  let result = 0
+  oForEachV(object, (k) => {
+    result += k
+  })
+  expect(result).toBe(15)
+})
+
+test('oMap', () => {
+  const tmp = oMap(object, ([k, v]) => Number(k) + v)
+  expect(tmp.reduce((a, b) => a + b)).toBe(21)
+})
+
+test('oReduce', () => {
+  const result = oReduce(object, (acc, [k, v]) => acc + Number(k) + v, 0)
+  expect(result).toBe(21)
+})
+
+test('oMapO', () => {
+  const tmp = oMapO(object, ([k, v]) => [v, k])
+  expect(Object.keys(tmp).reduce((a, b) => a + Number(b), 0)).toBe(15)
+})
+
+test('aToO', () => {
+  const tmp = aToO([1, 2, 3, 4, 5], (v) => [v, v * 2])
+  expect(Object.values(tmp).reduce(((a, b) => a + b))).toBe(30)
+})
+
+test('shake', () => {
+  const tmp = shake({
+    1: true,
+    2: undefined,
+    3: null,
+    4: false,
+    5: '',
+    6: 0
+  })
+  expect(Object.keys(tmp).reduce((a, b) => a + Number(b), 0)).toBe(16)
+})
+
+test('range', () => {
+  range(5).forEach((v, i) => {
+    expect(v).toBe(i)
+  })
+})
+
+test('unique', () => {
+  const target = [1, 2, 3, 4, 'a', 'b', null]
+  unique([1, 1, 2, 2, 2, 3, 4, 'a', 'b', 'b', null, null]).forEach((v, i) => {
+    expect(v).toBe(target[i])
+  })
+})
+
+describe.each(['a', 'abc', 1, null])('arrayed', (v) => {
+  expect(arrayed(v)[0]).toBe(v)
+  expect(arrayed([v, 'dummy'])[0]).toBe(v)
+})
