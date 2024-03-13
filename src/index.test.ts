@@ -1,4 +1,4 @@
-import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO, shake, range, unique, arrayed} from '.'
+import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO, shake, range, unique, arrayed, times} from '.'
 
 const object = {
   1: 4,
@@ -91,6 +91,12 @@ test('range', () => {
   range(5).forEach((v, i) => {
     expect(v).toBe(i)
   })
+})
+
+test('times', () => {
+  let result = 0
+  times(5, (i) => result += i)
+  expect(result).toBe(10)
 })
 
 test('unique', () => {

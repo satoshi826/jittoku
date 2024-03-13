@@ -68,6 +68,10 @@ export const shake = <TKey extends Key, TValue>
 
 export const range = (num: number) => [...Array(num).keys()]
 
+export const times = (i :number, f: (index: number) => void) => {
+  for (let index = 0; index < i; index++) f(index)
+}
+
 export const unique = <T>(array: T[]) => [...new Set(array)]
 
 export const arrayed = <T>(v: T | T[]) => Array.isArray(v) ? v : [v]
