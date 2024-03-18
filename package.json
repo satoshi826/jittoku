@@ -1,13 +1,16 @@
 {
   "name": "jittoku",
-  "version": "0.0.3",
-  "description": "tiny utility library",
+  "version": "0.0.4",
+  "description": "tiny typed utility library",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "lint": "eslint --fix",
     "build": "tsc",
     "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "url": "https://github.com/satoshi826/jittoku"
   },
   "author": "mu",
   "license": "MIT",

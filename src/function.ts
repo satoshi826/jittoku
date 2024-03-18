@@ -1,4 +1,4 @@
-import type { Key } from "./types"
+import type {Key, PickType, ValueOf} from './types.ts'
 
 export const values = <T>(obj: Record<Key, T>) => Object.values(obj)
 
@@ -75,4 +75,11 @@ export const times = (i :number, f: (index: number) => void) => {
 export const unique = <T>(array: T[]) => [...new Set(array)]
 
 export const arrayed = <T>(v: T | T[]) => Array.isArray(v) ? v : [v]
+
+export const pick = <T extends object, K extends ValueOf<T>>
+  (obj : T, picker : (k: keyof T, v : ValueOf<T>) => v is K) : PickType<T, K> =>
+    oReduce(obj, (acc, [k, v]) => {
+      if (picker(k, v)) acc[k] = v
+      return acc
+    }, {} as PickType<T, K>)
 

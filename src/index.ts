@@ -1,1 +1,2 @@
-export * from './function'
+export * from './function.js'
+export * from './types.js'

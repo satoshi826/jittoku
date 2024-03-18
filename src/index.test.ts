@@ -1,4 +1,4 @@
-import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO, shake, range, unique, arrayed, times} from '.'
+import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO, shake, range, unique, arrayed, times, pick} from '../src/function'
 
 const object = {
   1: 4,
@@ -109,4 +109,22 @@ test('unique', () => {
 describe.each(['a', 'abc', 1, null])('arrayed', (v) => {
   expect(arrayed(v)[0]).toBe(v)
   expect(arrayed([v, 'dummy'])[0]).toBe(v)
+})
+
+test('pick', () => {
+  const target = {
+    a: 'string',
+    b: 0,
+    c: null,
+    d: undefined,
+    e: 2,
+    f: 3
+  }
+  const picker = (_: unknown, v: unknown) : v is number => typeof v === 'number'
+  const piked = pick(target, picker)
+  const result = oReduce(piked, (acc, [, v]) => {
+    acc += v
+    return acc
+  }, 0)
+  expect(result).toBe(5)
 })
