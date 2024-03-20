@@ -123,8 +123,8 @@ test('pick', () => {
   const picker = (_: unknown, v: unknown) : v is number => typeof v === 'number'
   const piked = pick(target, picker)
   const result = oReduce(piked, (acc, [, v]) => {
-    acc += v
+    acc *= v + 1
     return acc
-  }, 0)
-  expect(result).toBe(5)
+  }, 1)
+  expect(result).toBe(12)
 })

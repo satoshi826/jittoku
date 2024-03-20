@@ -9,22 +9,22 @@ export const isObject = (v: unknown): v is object => v !== null && typeof v === 
 export const oLength = (obj: object): number => Object.keys(obj).length
 
 export const oForEach = <TKey extends Key, TValue>
-  (object: Record<TKey, TValue>, f: (keyValue: [TKey, TValue]) => void) => {
+  (object: Record<TKey, TValue>, f: (keyValue: [TKey, TValue], index: number) => void) => {
   (Object.entries(object) as Array<[TKey, TValue]>).forEach(f)
 }
 
 export const oForEachK = <T extends Key>
-  (object: Record<T, unknown>, f: (key: T) => void) => {
+  (object: Record<T, unknown>, f: (key: T, index: number) => void) => {
   (Object.keys(object) as T[]).forEach(f)
 }
 
 export const oForEachV = <T>
-  (object: Record<Key, T>, f: (value: T) => void) => {
+  (object: Record<Key, T>, f: (value: T, index: number) => void) => {
   Object.values(object).forEach(f)
 }
 
 export const oMap = <TKey extends Key, TValue, K>
-  (object: Record<TKey, TValue>, f: (keyValue: [TKey, TValue]) => K): K[] =>
+  (object: Record<TKey, TValue>, f: (keyValue: [TKey, TValue], index: number) => K): K[] =>
     (Object.entries(object) as Array<[TKey, TValue]>).map(f)
 
 export const oReduce = <TKey extends Key, TValue, Acc, Return extends Acc>
@@ -40,23 +40,23 @@ export const oReduce = <TKey extends Key, TValue, Acc, Return extends Acc>
     (Object.entries(object) as Array<[TKey, TValue]>).reduce(f, int) as Return
 
 export const oMapO = <TKey extends Key, TValue, K extends Key, U>
-  (object: Record<TKey, TValue>, f: (keyValue: [TKey, TValue]) => [K, U]) =>
-    Object.entries(object).reduce((obj, [k, v]) => {
-      const [newK, newV] = f([k, v] as [TKey, TValue])
+  (object: Record<TKey, TValue>, f: (keyValue: [TKey, TValue], index: number) => [K, U]) =>
+    Object.entries(object).reduce((obj, [k, v], i) => {
+      const [newK, newV] = f([k, v] as [TKey, TValue], i)
       obj[newK] = newV
       return obj
     }, {} as Record<K, U>)
 
 export const aToO = <T, K extends Key, U>
-  (array: T[], f: (item: T) => [K, U]): Record<K, U> => array.reduce((obj, cur) => {
-    const [k, v] = f(cur)
+  (array: T[], f: (item: T, index: number) => [K, U]): Record<K, U> => array.reduce((obj, cur, i) => {
+    const [k, v] = f(cur, i)
     obj[k] = v
     return obj
   }, {} as Record<K, U>)
 
 export const partition = <T>
-  (array: T[], f: (cur: T) => unknown) => array.reduce<[T[], T[]]>((res, cur) => {
-    res[f(cur) ? 0 : 1].push(cur)
+  (array: T[], f: (cur: T, index: number) => unknown) => array.reduce<[T[], T[]]>((res, cur, i) => {
+    res[f(cur, i) ? 0 : 1].push(cur)
     return res
   }, [[], []])
 
