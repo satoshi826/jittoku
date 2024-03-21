@@ -2,7 +2,7 @@ import type {Key, PickType, ValueOf} from './types.ts'
 
 export const values = <T>(obj: Record<Key, T>) => Object.values(obj)
 
-export const keys = <T extends Key>(obj: Record<T, unknown>) => Object.keys(obj)
+export const keys = <T extends Key>(obj: Record<T, unknown>) : T[] => Object.keys(obj) as T[]
 
 export const isObject = (v: unknown): v is object => v !== null && typeof v === 'object'
 
