@@ -1,4 +1,4 @@
-import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO, shake, range, unique, arrayed, times, pick} from '../src/function'
+import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO, shake, range, unique, arrayed, times, pick, isNullish} from '../src/function'
 
 const object = {
   1: 4,
@@ -24,6 +24,12 @@ describe.each([
   [object, true], [null, false], [undefined, false], [1, false], ['a', false]
 ])('isObject', (value, expected) => {
   expect(isObject(value)).toBe(expected)
+})
+
+describe.each([
+  [0, false], [null, true], [undefined, true], [1, false], ['a', false], [{}, false]
+])('isNullish', (value, expected) => {
+  expect(isNullish(value)).toBe(expected)
 })
 
 test('oLength', () => {

@@ -6,6 +6,8 @@ export const keys = <T extends Key>(obj: Record<T, unknown>) : T[] => Object.key
 
 export const isObject = (v: unknown): v is object => v !== null && typeof v === 'object'
 
+export const isNullish = (v: unknown) : v is null | undefined => v === null || v === undefined
+
 export const oLength = (obj: object): number => Object.keys(obj).length
 
 export const oForEach = <TKey extends Key, TValue>
