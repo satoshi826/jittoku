@@ -9,3 +9,7 @@ export type PickType<T, U> = {
 export type Falsy = false | 0 | '' | null | undefined
 
 export type Truthy<T> = T extends Falsy ? never : T
+
+export type PartialRecord<K extends keyof any, T> = {
+  [P in K]?: T
+}
