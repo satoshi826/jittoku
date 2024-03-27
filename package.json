@@ -1,6 +1,6 @@
 {
   "name": "jittoku",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "tiny typed utility library",
   "main": "dist/index.js",
   "scripts": {

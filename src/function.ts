@@ -78,6 +78,9 @@ export const unique = <T>(array: T[]) => [...new Set(array)]
 
 export const arrayed = <T>(v: T | T[]) => Array.isArray(v) ? v : [v]
 
+// Due to the specifications of javascript, ordering is not necessarily guaranteed.
+export const firstEntry = <TKey extends Key, TValue>(object : Record<TKey, TValue>) => Object.entries(object)[0] as [TKey, TValue]
+
 export const pick = <T extends object, K extends ValueOf<T>>
   (obj : T, picker : (k: keyof T, v : ValueOf<T>) => v is K) : PickType<T, K> =>
     oReduce(obj, (acc, [k, v]) => {
