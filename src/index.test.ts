@@ -1,4 +1,5 @@
-import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO, shake, range, unique, arrayed, times, pick, isNullish, firstEntry} from '../src/function'
+import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO,
+   shake, range, unique, arrayed, times, pick, isNullish, firstEntry, random} from '../src/function'
 
 const object = {
   1: 4,
@@ -142,4 +143,8 @@ test('pick', () => {
     return acc
   }, 1)
   expect(result).toBe(12)
+})
+
+describe.each([[undefined, undefined], [10, 100], [-1, 1]])('random', (min, max) => {
+  expect((min ?? 0) < random(min, max) && (max ?? 1) > random(min, max)).toBe(true)
 })

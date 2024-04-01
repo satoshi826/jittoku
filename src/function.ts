@@ -88,3 +88,4 @@ export const pick = <T extends object, K extends ValueOf<T>>
       return acc
     }, {} as PickType<T, K>)
 
+export const random = (min = 0, max = 1) => Math.random() * (max - min) + min
