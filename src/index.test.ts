@@ -1,5 +1,6 @@
+import {expect, test, describe} from 'vitest'
 import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO,
-   shake, range, unique, arrayed, times, pick, isNullish, firstEntry, random} from '../src/function'
+  shake, range, unique, arrayed, times, pick, isNullish, firstEntry, random} from '../src/'
 
 const object = {
   1: 4,
@@ -24,13 +25,13 @@ test('keys', () => {
 describe.each([
   [object, true], [null, false], [undefined, false], [1, false], ['a', false]
 ])('isObject', (value, expected) => {
-  expect(isObject(value)).toBe(expected)
+  test(`${value} is ${expected}`, () => expect(isObject(value)).toBe(expected))
 })
 
 describe.each([
   [0, false], [null, true], [undefined, true], [1, false], ['a', false], [{}, false]
 ])('isNullish', (value, expected) => {
-  expect(isNullish(value)).toBe(expected)
+  test(`${value} is ${expected}`, () => expect(isNullish(value)).toBe(expected))
 })
 
 test('oLength', () => {
@@ -114,8 +115,10 @@ test('unique', () => {
 })
 
 describe.each(['a', 'abc', 1, null])('arrayed', (v) => {
-  expect(arrayed(v)[0]).toBe(v)
-  expect(arrayed([v, 'dummy'])[0]).toBe(v)
+  test(`${v} arrayed is ${arrayed(v)}`, () => {
+    expect(arrayed(v)[0]).toBe(v)
+    expect(arrayed([v, 'dummy'])[0]).toBe(v)
+  })
 })
 
 test('firstEntry', () => {
@@ -146,5 +149,10 @@ test('pick', () => {
 })
 
 describe.each([[undefined, undefined], [10, 100], [-1, 1]])('random', (min, max) => {
-  expect((min ?? 0) < random(min, max) && (max ?? 1) > random(min, max)).toBe(true)
+  const result = random(min, max)
+  const targetMax = max ?? 1
+  const targetMin = min ?? 0
+  test(`${targetMin} < ${result} < ${targetMax}`, () => {
+    expect(targetMin < result && targetMax > result).toBe(true)
+  })
 })
