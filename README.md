@@ -204,3 +204,13 @@ returns a random floating-point number within a specified range
 ```typescript
 const result = random(10, 20); // random floating-point number between 10 and 20
 ```
+
+## `clamp(x: number, min: number, max: number)`
+
+returns min if x is less than min, max if x is greater than max, and x itself if it is within the range.
+
+```typescript
+const result1 = clamp(-5, 0, 10); // 0
+const result2 = clamp(5, 0, 10);  // 5
+const result3 = clamp(15, 0, 10); // 10
+```

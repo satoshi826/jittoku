@@ -1,6 +1,6 @@
 import {expect, test, describe} from 'vitest'
 import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO,
-  shake, range, unique, arrayed, times, pick, isNullish, firstEntry, random} from '../src/'
+  shake, range, unique, arrayed, times, pick, isNullish, firstEntry, random, clamp} from '../src/'
 
 const object = {
   1: 4,
@@ -154,5 +154,17 @@ describe.each([[undefined, undefined], [10, 100], [-1, 1]])('random', (min, max)
   const targetMin = min ?? 0
   test(`${targetMin} < ${result} < ${targetMax}`, () => {
     expect(targetMin < result && targetMax > result).toBe(true)
+  })
+})
+
+describe.each([
+  {x: -5, min: 0, max: 10, expected: 0},
+  {x: 15, min: 0, max: 10, expected: 10},
+  {x: 5, min: 0, max: 10, expected: 5},
+  {x: 0, min: 0, max: 10, expected: 0},
+  {x: 10, min: 0, max: 10, expected: 10}
+])('clamp($x, $min, $max)', ({x, min, max, expected}) => {
+  test(`returns ${expected}`, () => {
+    expect(clamp(x, min, max)).toBe(expected)
   })
 })
