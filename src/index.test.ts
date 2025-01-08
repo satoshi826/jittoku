@@ -1,6 +1,7 @@
 import {expect, test, describe} from 'vitest'
 import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO,
-  shake, range, unique, arrayed, times, pick, isNullish, firstEntry, random, clamp} from '../src/'
+  shake, range, unique, arrayed, times, pick, isNullish, firstEntry, random, clamp,
+  truncate} from '../src/'
 
 const object = {
   1: 4,
@@ -166,5 +167,13 @@ describe.each([
 ])('clamp($x, $min, $max)', ({x, min, max, expected}) => {
   test(`returns ${expected}`, () => {
     expect(clamp(x, min, max)).toBe(expected)
+  })
+})
+
+describe('truncate', () => {
+  test('truncates number correctly', () => {
+    expect(truncate(1234.5678, 2)).toBe(1234.56)
+    expect(truncate(1234.5678, 0)).toBe(1234)
+    expect(truncate(1234.5678, -1)).toBe(1230)
   })
 })

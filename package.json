@@ -1,6 +1,6 @@
 {
   "name": "jittoku",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "tiny typed utility library",
   "engines": {
     "node": ">=18"

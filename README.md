@@ -1,13 +1,14 @@
 # jittoku
+
 Tiny TypeScript utility
 
-# Install
+## Install
 
-```
+```shell
 npm install jittoku
 ```
 
-# Usage
+## Usage
 
 ## `values(object)`
 
@@ -142,6 +143,7 @@ removes null or undefined values from an object
 const obj = { a: 1, b: null, c: undefined, d: 4 };
 const result = shake(obj); // { a: 1, d: 4 }
 ```
+
 ## `range(number)`
 
 returns an array of integers within a specified range
@@ -213,4 +215,15 @@ returns min if x is less than min, max if x is greater than max, and x itself if
 const result1 = clamp(-5, 0, 10); // 0
 const result2 = clamp(5, 0, 10);  // 5
 const result3 = clamp(15, 0, 10); // 10
+```
+
+## `truncate(value: number, digits: number)`
+
+truncates a number to the specified number of significant digits.
+
+```typescript
+const result1 = truncate(1234.5678, 2);  // 1234.56
+const result2 = truncate(1234.5678, 0);  // 1234
+const result3 = truncate(1234.5678, -1); // 1230
+const result4 = truncate(1234.5678, -2); // 1200
 ```

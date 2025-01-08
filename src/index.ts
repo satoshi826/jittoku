@@ -105,3 +105,10 @@ export const pick = <T extends object, K extends ValueOf<T>>
 export const random = (min = 0, max = 1) => Math.random() * (max - min) + min
 
 export const clamp = (x: number, min: number, max: number) => Math.min(Math.max(x, min), max)
+
+export const truncate = (value: number, digits: number) => {
+  if (digits === 0) return Math.trunc(value)
+  const factor = Math.pow(10, digits)
+  return Math.trunc(value * factor) / factor
+}
+
