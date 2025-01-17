@@ -1,7 +1,7 @@
 import {expect, test, describe} from 'vitest'
 import {values, keys, isObject, oLength, oForEach, oForEachK, oForEachV, oMap, oReduce, oMapO, aToO,
-  shake, range, unique, arrayed, times, pick, isNullish, firstEntry, random, clamp,
-  truncate} from '../src/'
+  shake, range, unique, arrayed, times, pick, isNullish,
+  firstEntry, random, clamp, truncate, step} from '../src/'
 
 const object = {
   1: 4,
@@ -175,5 +175,13 @@ describe('truncate', () => {
     expect(truncate(1234.5678, 2)).toBe(1234.56)
     expect(truncate(1234.5678, 0)).toBe(1234)
     expect(truncate(1234.5678, -1)).toBe(1230)
+  })
+})
+
+describe('step', () => {
+  test('returns step array correctly', () => {
+    expect(step(0, 10, 2)).toEqual([0, 2, 4, 6, 8, 10])
+    expect(step(0, 10, 3)).toEqual([0, 3, 6, 9])
+    expect(step(5, 50, 5)).toEqual([5, 10, 15, 20, 25, 30, 35, 40, 45, 50])
   })
 })

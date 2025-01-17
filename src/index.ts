@@ -112,3 +112,10 @@ export const truncate = (value: number, digits: number) => {
   return Math.trunc(value * factor) / factor
 }
 
+export const step = (min: number, max: number, interval: number): number[] => {
+  const result: number[] = []
+  for (let i = min; i <= max; i += interval) {
+    result.push(i)
+  }
+  return result
+}

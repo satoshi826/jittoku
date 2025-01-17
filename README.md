@@ -227,3 +227,14 @@ const result2 = truncate(1234.5678, 0);  // 1234
 const result3 = truncate(1234.5678, -1); // 1230
 const result4 = truncate(1234.5678, -2); // 1200
 ```
+
+## `step(min: number, max: number, interval: number)`
+
+returns an array of numbers starting from min to max, with steps of interval.
+
+```typescript
+const result1 = step(10, 80, 10);  // [10, 20, 30, 40, 50, 60, 70, 80]
+const result2 = step(5, 50, 5);    // [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+const result3 = step(1, 5, 1);     // [1, 2, 3, 4, 5]
+const result4 = step(0, 100, 25);  // [0, 25, 50, 75, 100]
+```
